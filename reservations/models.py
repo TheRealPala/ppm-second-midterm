@@ -7,7 +7,8 @@ class Reservation(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='reservations')
     reserved_at = models.DateTimeField(auto_now_add=True)
-    is_paid = models.BooleanField(default=False)
+    paid = models.BooleanField(default=False)
+    tickets = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.user} - {self.event}"
+        return f"{self.user} - {self.event}-num of tickets: {self.tickets}"

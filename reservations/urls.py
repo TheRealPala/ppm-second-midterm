@@ -1,8 +1,10 @@
-# reservations/urls.py
-from django.urls import path
-from .views import ReservationListCreateView, ReservationDetailView
+from rest_framework import routers
+from django.urls import path, include
+from .views import ReservationViewSet
+
+router = routers.DefaultRouter()
+router.register(r'', ReservationViewSet)
 
 urlpatterns = [
-    path('', ReservationListCreateView.as_view(), name='reservation-list'),
-    path('<int:pk>/', ReservationDetailView.as_view(), name='reservation-detail'),
+    path('', include(router.urls)),
 ]

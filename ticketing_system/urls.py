@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from events.views import EventViewSet
-
 router = DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('events.urls')),
+    path('api/events/', include('events.urls')),
+    path('api/reservations/', include('reservations.urls')),
+    path('api/users/', include('users.urls'))
 ]
