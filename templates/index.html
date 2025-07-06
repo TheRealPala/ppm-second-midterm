@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Client REST</title>
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- CSS personalizzato -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<div class="container mt-5">
+    <section>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Benvenuto nel client Django</h1>
+            <div class="rounded-3 border border-2 border-solid p-2" id="login-status"></div>
+        </div>
+        <p>Qui puoi testare le API REST.</p>
+        <label for="user-select">Tipo di utente: </label>
+        <select id="user-select">
+            <option value="" selected>Anonymous</option>
+            <option value="user1">Utente Normale 1</option>
+            <option value="user2">Utente Normale 2</option>
+            <option value="staff">Utente Staff</option>
+        </select>
+    </section>
+    <section class="mt-4">
+        <div class="border p-3 mb-4">
+            <h3>Events</h3>
+            <button class="btn btn-primary btn-sm" onclick="getEvents()">GET /events</button>
+            <input type="number" id="event-id" placeholder="Event ID" class="form-control my-2 w-auto d-inline-block">
+            <button class="btn btn-secondary btn-sm" onclick="getEventById()">GET /events/&lt;id&gt;</button>
+            <button class="btn btn-info btn-sm" onclick="getAvailableEvents()">GET /events/availables</button><br>
+            <button class="btn btn-info btn-sm" onclick="clearOutput('events-output')">Clear Output</button>
+            <pre id="events-output" class="mt-3 bg-light p-2"></pre>
+        </div>
+
+        <!-- Reservations -->
+        <div class="border p-3 mb-4">
+            <h3>Reservations</h3>
+
+            <button class="btn btn-primary btn-sm" onclick="getReservations()">GET all</button>
+            <input type="number" id="reservation-id" placeholder="Reservation ID" class="form-control my-2 w-auto d-inline-block">
+            <button class="btn btn-secondary btn-sm" onclick="getReservationById()">GET /&lt;id&gt;</button>
+
+            <h5 class="mt-3">Create</h5>
+            <input type="number" id="res-event-id" placeholder="Event ID" class="form-control my-1 w-auto d-inline-block">
+            <input type="number" id="res-tickets" placeholder="Tickets" class="form-control my-1 w-auto d-inline-block">
+            <button class="btn btn-success btn-sm" onclick="createReservation()">POST</button>
+
+            <h5 class="mt-3">Update</h5>
+            <input type="number" id="res-update-id" placeholder="ID" class="form-control my-1 w-auto d-inline-block">
+            <input type="number" id="res-update-tickets" placeholder="New Tickets" class="form-control my-1 w-auto d-inline-block">
+            <button class="btn btn-warning btn-sm" onclick="updateReservation()">PATCH</button><br>
+            <button class="btn btn-info btn-sm" onclick="clearOutput('reservations-output')">Clear Output</button>
+            <pre id="reservations-output" class="mt-3 bg-light p-2"></pre>
+        </div>
+    </section>
+</div>
+
+<!-- Bootstrap JS bundle (Popper + Bootstrap) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>
