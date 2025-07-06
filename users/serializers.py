@@ -11,7 +11,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'birth_date', 'password']
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
+        password = validated_data.pop('password', None)
+        if not password:
+            raise serializers.ValidationError({'password': 'This field is required.'})
         user = CustomUser(**validated_data)
         user.set_password(password)
         user.save()
