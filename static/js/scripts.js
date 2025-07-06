@@ -13,6 +13,10 @@ function loadTokens() {
     const token = localStorage.getItem('accessToken');
     if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const select = document.getElementById('user-select')
+        document.getElementById('login-status').textContent = `Logged in as: ${select.options[select.selectedIndex].value}`;
+        document.getElementById('login-status').classList.add('border-success');
+        document.getElementById('login-status').classList.remove('border-danger');
     }
 }
 
@@ -51,9 +55,11 @@ function display(outputId, data) {
 function clearOutput(container) {
     document.getElementById(container).textContent='';
 }
+
 function errorToString(error){
-    return `Errore ${error.status}: ${error.response ? error.response.data.detail : error.message}`
+    return `Errore ${error.status}: ${error.response ? error.response.data.detail ? error.response.data.detail : error.response.data[0]  : error.message}`
 }
+
 // EVENTS
 async function getEvents() {
     try {
@@ -88,28 +94,59 @@ async function getAvailableEvents() {
 }
 
 async function getReservations() {
-    const res = await api.get('/reservations/');
-    display('reservations-output', res.data);
+    try {
+        const res = await api.get('/reservations/');
+        display('reservations-output', res.data);
+    } catch (error) {
+        console.error("Errore nella getReservations:", error);
+        display('reservations-output', errorToString(error));
+    }
 }
 
 async function getReservationById() {
-    const id = document.getElementById('reservation-id').value;
-    const res = await api.get(`/reservations/${id}/`);
-    display('reservations-output', res.data);
+    try {
+        const id = document.getElementById('reservation-id').value;
+        const res = await api.get(`/reservations/${id}/`);
+        display('reservations-output', res.data);
+    } catch (error) {
+        console.error("Errore nella getReservationById:", error);
+        display('reservations-output', errorToString(error));
+    }
 }
 
 async function createReservation() {
-    const event = parseInt(document.getElementById('res-event-id').value);
-    const tickets = parseInt(document.getElementById('res-tickets').value);
-    const res = await api.post('/reservations/', { event, tickets });
-    display('reservations-output', res.data);
+    try {
+        const event = parseInt(document.getElementById('res-event-id').value);
+        const tickets = parseInt(document.getElementById('res-tickets').value);
+        const res = await api.post('/reservations/', { event, tickets });
+        display('reservations-output', res.data);
+    } catch (error) {
+        console.error("Errore nella createReservation:", error);
+        display('reservations-output', errorToString(error));
+    }
+}
+
+async function payReservation() {
+    try {
+        const id = document.getElementById('res-pay-id').value;
+        const res = await api.post(`/reservations/${id}/pay/`);
+        display('reservations-output', res.data);
+    } catch (error) {
+        console.error("Errore nella createReservation:", error);
+        display('reservations-output', errorToString(error));
+    }
 }
 
 async function updateReservation() {
-    const id = document.getElementById('res-update-id').value;
-    const tickets = parseInt(document.getElementById('res-update-tickets').value);
-    const res = await api.patch(`/reservations/${id}/`, { tickets });
-    display('reservations-output', res.data);
+    try {
+        const id = document.getElementById('res-update-id').value;
+        const tickets = parseInt(document.getElementById('res-update-tickets').value);
+        const res = await api.patch(`/reservations/${id}/`, { tickets });
+        display('reservations-output', res.data);
+    } catch (error) {
+        console.error("Errore nella updateReservation:", error);
+        display('reservations-output', errorToString(error));
+    }
 }
 
 
@@ -149,6 +186,5 @@ api.interceptors.response.use(
     }
 );
 
-localStorage.clear()
 document.getElementById('login-status').textContent = 'Anonymous';
 loadTokens();
