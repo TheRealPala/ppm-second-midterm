@@ -1,6 +1,10 @@
 from rest_framework.permissions import BasePermission
 
 
+# Anonimi non possono fare nulla
+# Autenticati possono gestire solamente le loro prenotazioni
+# Super user e staff possono fare tutto
+
 class IsOwner(BasePermission):
 
     def has_object_permission(self, request, view, obj):
