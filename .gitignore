@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 
+ticketing_system/__pycache__/
+
 # Virtual environment
 .venv/
 env/
