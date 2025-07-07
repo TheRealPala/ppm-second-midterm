@@ -64,6 +64,12 @@ function clearOutput(container) {
 }
 
 function errorToString(error){
+    if (error?.response.data['non_field_errors']) {
+        let message = error?.response.data['non_field_errors'][0]
+        return `Errore ${error.status}: ${message}`
+    }
+
+    console.log(error);
     return `Errore ${error.status}: ${error.response ? error.response.data.detail ? error.response.data.detail : error.response.data[0]  : error.message}`
 }
 
@@ -100,6 +106,71 @@ async function getAvailableEvents() {
 
 }
 
+async function addNewEvent() {
+    try {
+        const title = document.getElementById('event-title-post').value;
+        const location = document.getElementById('event-location-post').value;
+        const date = document.getElementById('event-date-post').value;
+        const available_tickets = parseInt(document.getElementById('event-tickets-post').value);
+        const res = await api.post('/events/', { title, location, date, available_tickets });
+        display('events-output', res.data);
+    } catch (error) {
+        console.error("Errore nella createEvents:", error);
+        display('events-output', errorToString(error));
+    }
+}
+
+async function patchEvent() {
+    try {
+        const id = parseInt(document.getElementById('event-id-patch').value);
+        const title = document.getElementById('event-title-patch').value;
+        const location = document.getElementById('event-location-patch').value;
+        const date = document.getElementById('event-date-patch').value;
+        const available_tickets = parseInt(document.getElementById('event-tickets-patch').value);
+        if (!id) {
+            display('events-output', 'ID is required for patching an event');
+            return;
+        }
+        let payload = {};
+        if (title) {
+            payload['title'] = title;
+        }
+        if (location) {
+            payload['location'] = location;
+        }
+        if (date) {
+            payload['date'] = date;
+        }
+        if (available_tickets) {
+            payload['available_tickets'] = available_tickets;
+        }
+        if (Object.keys(payload).length === 0) {
+            display('events-output', 'No fields to update');
+            return;
+        }
+        const res = await api.patch(`/events/${id}/`, payload);
+        display('events-output', res.data);
+    } catch (error) {
+        console.error("Errore nella createEvents:", error);
+        display('events-output', errorToString(error));
+    }
+}
+
+async function deleteEvent() {
+    try {
+        const id = parseInt(document.getElementById('event-id-delete').value);
+        if (!id) {
+            display('events-output', 'ID is required for deleting an event');
+            return;
+        }
+        const res = await api.delete(`/events/${id}/`);
+        display('events-output', res.data);
+    } catch (error) {
+        console.error("Errore nella deleteEvent:", error);
+        display('events-output', errorToString(error));
+    }
+}
+// RESERVATION
 async function getReservations() {
     try {
         const res = await api.get('/reservations/');

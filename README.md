@@ -213,3 +213,7 @@ Patch an user
     Content-type: application/json  
     payload: User to patch
     response: User patched
+
+
+[//]: # (TODO: Do usage part with username and passwords)
+
