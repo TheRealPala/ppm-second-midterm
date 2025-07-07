@@ -14,7 +14,11 @@ function loadTokens() {
     if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const select = document.getElementById('user-select')
-        document.getElementById('login-status').textContent = `Logged in as: ${select.options[select.selectedIndex].value}`;
+        let userDisplay = select.options[localStorage.getItem('indexElement')].value;
+        if (userDisplay === '') {
+            userDisplay = 'Anonymous'
+        }
+        document.getElementById('login-status').textContent = `Logged in as: ${userDisplay}`;
         document.getElementById('login-status').classList.add('border-success');
         document.getElementById('login-status').classList.remove('border-danger');
     }
@@ -23,12 +27,15 @@ function loadTokens() {
 function saveTokens(access, refresh) {
     localStorage.setItem('accessToken', access);
     localStorage.setItem('refreshToken', refresh);
+    const select = document.getElementById('user-select');
+    localStorage.setItem('indexElement', select.selectedIndex);
     api.defaults.headers.common['Authorization'] = `Bearer ${access}`;
 }
 
 function clearTokens() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('indexElement')
     delete api.defaults.headers.common['Authorization'];
 }
 
@@ -148,7 +155,16 @@ async function updateReservation() {
         display('reservations-output', errorToString(error));
     }
 }
-
+async function deleteReservation() {
+    try {
+        const id = document.getElementById('res-delete-id').value;
+        const res = await api.delete(`/reservations/${id}/`);
+        display('reservations-output', res.data);
+    } catch (error) {
+        console.error("Errore nella deleteReservation:", error);
+        display('reservations-output', errorToString(error));
+    }
+}
 
 document.getElementById('user-select').addEventListener('change', e => {
     const val = e.target.value;

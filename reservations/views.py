@@ -31,6 +31,19 @@ class ReservationViewSet(viewsets.ModelViewSet):
 
         serializer.save(user=self.request.user)
 
+    def destroy(self, request, *args, **kwargs):
+        reservation = self.get_object()
+
+        if reservation.paid:
+            Response({'detail': 'Reservation already paid'}, status=status.HTTP_400_BAD_REQUEST)
+
+        event = reservation.event
+        event.available_tickets += reservation.tickets
+        event.save()
+
+        reservation.delete()
+        return Response({'detail': 'Reservation deleted successfully'}, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=['post'])
     def pay(self, request, pk=None):
         reservation = self.get_object()

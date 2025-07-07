@@ -14,7 +14,7 @@
 <div class="container mt-5">
     <section>
         <div class="d-flex justify-content-between align-items-center">
-            <h1>Benvenuto nel client Django</h1>
+            <h1>Welcome in the for Ticketing System's REST API CLIENT </h1>
             <div class="rounded-3 border border-2 border-solid p-2" id="login-status"></div>
         </div>
         <p>Qui puoi testare le API REST.</p>
@@ -27,12 +27,24 @@
         </select>
     </section>
     <section class="mt-4">
+        <h3>Be careful</h3>
+        <p>
+            This is a very <b>minimal client</b>, with only the http action that make sense (given the context of Ticketing system) <br>
+            If you want to try a more complete test environment, i suggest you to try the <b>Postman collections</b> i made to try and debug all the rest endpoints of the app during the development
+        </p>
+        <a href="https://ticket-api.palano.it" target="_blank">
+             <img src="https://run.pstmn.io/button.svg" alt="Run In Postman" 
+                  style="width: 128px; height: 32px;">
+        </a>
+
+    </section>
+    <section class="mt-4">
         <div class="border p-3 mb-4">
             <h3>Events</h3>
             <button class="btn btn-primary btn-sm" onclick="getEvents()">GET all</button>
             <input type="number" id="event-id" placeholder="Event ID" class="form-control my-2 w-auto d-inline-block">
             <button class="btn btn-secondary btn-sm" onclick="getEventById()">GET /events/&lt;id&gt;</button>
-            <button class="btn btn-info btn-sm" onclick="getAvailableEvents()">GET /events/availables</button><br>
+            <button class="btn btn-info btn-sm" onclick="getAvailableEvents()">GET availables</button><br>
             <button class="btn btn-info btn-sm" onclick="clearOutput('events-output')">Clear Output</button>
             <pre id="events-output" class="mt-3 bg-light p-2"></pre>
         </div>
@@ -46,18 +58,23 @@
             <button class="btn btn-secondary btn-sm" onclick="getReservationById()">GET /&lt;id&gt;</button>
 
             <h5 class="mt-3">Create</h5>
-            <label for="res-event-id"></label><input type="number" id="res-event-id" placeholder="Event ID" class="form-control my-1 w-auto d-inline-block">
+            <label for="res-event-id"></label><input type="number" id="res-event-id" placeholder="Reservation ID ID" class="form-control my-1 w-auto d-inline-block">
             <label for="res-tickets"></label><input type="number" id="res-tickets" placeholder="Tickets" class="form-control my-1 w-auto d-inline-block">
             <button class="btn btn-success btn-sm" onclick="createReservation()">POST</button>
 
             <h5 class="mt-3">Pay</h5>
-            <label for="res-pay-id"></label><input type="number" id="res-pay-id" placeholder="Event ID" class="form-control my-1 w-auto d-inline-block">
+            <label for="res-pay-id"></label><input type="number" id="res-pay-id" placeholder="Reservation ID" class="form-control my-1 w-auto d-inline-block">
             <button class="btn btn-success btn-sm" onclick="payReservation()">POST</button>
 
-            <h5 class="mt-3">Update</h5>
-            <label for="res-update-id"></label><input type="number" id="res-update-id" placeholder="ID" class="form-control my-1 w-auto d-inline-block">
+            <h5 class="mt-3">Patch</h5>
+            <label for="res-update-id"></label><input type="number" id="res-update-id" placeholder="Reservation ID" class="form-control my-1 w-auto d-inline-block">
             <label for="res-update-tickets"></label><input type="number" id="res-update-tickets" placeholder="New Tickets" class="form-control my-1 w-auto d-inline-block">
-            <button class="btn btn-warning btn-sm" onclick="updateReservation()">PATCH</button><br>
+            <button class="btn btn-warning btn-sm" onclick="updateReservation()">PATCH</button>
+            
+            <h5 class="mt-3">Delete</h5>
+            <label for="res-delete-id"></label><input type="number" id="res-delete-id" placeholder="Event ID" class="form-control my-1 w-auto d-inline-block">
+            <button class="btn btn-danger btn-sm" onclick="deleteReservation()">DELETE</button>
+            <br>
             <button class="btn btn-info btn-sm mt-2" onclick="clearOutput('reservations-output')">Clear Output</button>
             <pre id="reservations-output" class="mt-3 bg-light p-2"></pre>
         </div>
