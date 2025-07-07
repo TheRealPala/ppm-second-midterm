@@ -340,7 +340,7 @@ api.interceptors.response.use(
             if (refreshToken) {
                 try {
                     const res = await api.post('/token/refresh/', { refresh: refreshToken });
-                    saveTokens(res.data.access, refreshToken);
+                    saveTokens(res.data.access, res.data.refresh);
                     originalRequest.headers['Authorization'] = `Bearer ${res.data.access}`;
                     return api(originalRequest);
                 } catch (refreshError) {
