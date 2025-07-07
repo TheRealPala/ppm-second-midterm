@@ -236,6 +236,88 @@ async function deleteReservation() {
         display('reservations-output', errorToString(error));
     }
 }
+//USERS
+// USERS
+async function getUsers() {
+    try {
+        const res = await api.get('/users/');
+        display('users-output', res.data);
+    } catch (error) {
+        console.error("Errore nella getUsers:", error);
+        display('users-output', errorToString(error));
+    }
+}
+
+async function getUserById() {
+    try {
+        const id = document.getElementById('user-id').value;
+        const res = await api.get(`/users/${id}/`);
+        display('users-output', res.data);
+    } catch (error) {
+        console.error("Errore nella getUserById:", error);
+        display('users-output', errorToString(error));
+    }
+}
+
+async function createUser() {
+    try {
+        const username = document.getElementById('user-username').value;
+        const email = document.getElementById('user-email').value;
+        const password = document.getElementById('user-password').value;
+        const birth_date = document.getElementById('user-birth').value;
+
+        const res = await api.post('/users/', { username, email, password, birth_date });
+        display('users-output', res.data);
+    } catch (error) {
+        console.error("Errore nella createUser:", error);
+        display('users-output', errorToString(error));
+    }
+}
+
+async function patchUser() {
+    try {
+        const id = parseInt(document.getElementById('user-id-patch').value);
+        const email = document.getElementById('user-email-patch').value;
+        const password = document.getElementById('user-password-patch').value;
+        const birth_date = document.getElementById('user-birth-patch').value;
+
+        if (!id) {
+            display('users-output', 'ID is required for patching a user');
+            return;
+        }
+
+        let payload = {};
+        if (email) payload['email'] = email;
+        if (password) payload['password'] = password;
+        if (birth_date) payload['birth_date'] = birth_date;
+
+        if (Object.keys(payload).length === 0) {
+            display('users-output', 'No fields to update');
+            return;
+        }
+
+        const res = await api.patch(`/users/${id}/`, payload);
+        display('users-output', res.data);
+    } catch (error) {
+        console.error("Errore nella patchUser:", error);
+        display('users-output', errorToString(error));
+    }
+}
+
+async function deleteUser() {
+    try {
+        const id = parseInt(document.getElementById('user-id-delete').value);
+        if (!id) {
+            display('users-output', 'ID is required for deleting a user');
+            return;
+        }
+        const res = await api.delete(`/users/${id}/`);
+        display('users-output', res.data || `User ${id} deleted`);
+    } catch (error) {
+        console.error("Errore nella deleteUser:", error);
+        display('users-output', errorToString(error));
+    }
+}
 
 document.getElementById('user-select').addEventListener('change', e => {
     const val = e.target.value;

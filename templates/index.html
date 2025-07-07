@@ -100,6 +100,38 @@
             <button class="btn btn-info btn-sm mt-2" onclick="clearOutput('reservations-output')">Clear Output</button>
             <pre id="reservations-output" class="mt-3 bg-light p-2"></pre>
         </div>
+
+        <div class="border p-3 mb-4">
+            <h3>Users</h3>
+
+            <h5 class="mt-3">Read</h5>
+            <button class="btn btn-primary btn-sm" onclick="getUsers()">GET all</button>
+            <input type="number" id="user-id" placeholder="User ID" class="form-control my-2 w-auto d-inline-block">
+            <button class="btn btn-secondary btn-sm" onclick="getUserById()">GET /users/&lt;id&gt;</button><br>
+
+            <h5 class="mt-3">Create</h5>
+            <input id="user-username" placeholder="Username" class="form-control my-1 w-auto d-inline-block">
+            <input id="user-email" type="email" placeholder="Email" class="form-control my-1 w-auto d-inline-block">
+            <input id="user-password" type="password" placeholder="Password" class="form-control my-1 w-auto d-inline-block">
+            <input id="user-birth" type="date" placeholder="Birth date" class="form-control my-1 w-auto d-inline-block">
+            <button class="btn btn-success btn-sm" onclick="createUser()">POST</button>
+
+            <h5 class="mt-3">Patch</h5>
+            <input id="user-id-patch" type="number" placeholder="User ID" class="form-control my-1 w-auto d-inline-block">
+            <input id="user-email-patch" type="email" placeholder="Email" class="form-control my-1 w-auto d-inline-block">
+            <input id="user-password-patch" type="password" placeholder="Password" class="form-control my-1 w-auto d-inline-block">
+            <input id="user-birth-patch" type="date" placeholder="Birth date" class="form-control my-1 w-auto d-inline-block">
+            <button class="btn btn-warning btn-sm" onclick="patchUser()">PATCH</button>
+
+            <h5 class="mt-3">Delete</h5>
+            <input id="user-id-delete" type="number" placeholder="User ID" class="form-control my-1 w-auto d-inline-block">
+            <button class="btn btn-danger btn-sm" onclick="deleteUser()">DELETE</button>
+
+            <br>
+            <button class="btn btn-info btn-sm mt-2" onclick="clearOutput('users-output')">Clear Output</button>
+            <pre id="users-output" class="mt-3 bg-light p-2"></pre>
+        </div>
+
     </section>
 </div>
 
