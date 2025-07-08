@@ -64,6 +64,21 @@ Staff Users can:
 - list, retrieve, add, modify and delete ALL the reservations,
 - list, retrieve, add, modify and delete users
 
+## Usage
+The application expose the REST CLIENT in the root of the web server.  
+The API Endpoints are available at `/api/`, the documentation is available [here](#Rest-Endpoints) or on [Postman](https://ticket-api.palano.it).  
+The app has been deployed at this url: [https://ppm-second-midterm-production.up.railway.app/](https://ppm-second-midterm-production.up.railway.app/).  
+
+As said before, for a basic usage, the client available [here](https://ppm-second-midterm-production.up.railway.app/) is more than enough.  
+If you want to test each endpoint in a more detailed way, you can use the Postman collection available [here](https://ticket-api.palano.it).  
+If you want to go with the Postman collection, the docs will teach you how to use it, but, as a summary, you have to add in the environment variables the username and the password of the user you want to impersonate, and then you can use the "login_check" endpoint to get the access token and the refresh token.
+The Available Users are:
+
+- Anonymous User: no username and password   
+(the token is not required, so you have neither to fill the environment nor perform the login_check request)
+- Base User 1 -> username: `user1`, password: `user1`,
+- Base User 2 -> username: `user2`, password: `user2`,
+- Staff User -> username: `staff`, password: `staff`.
 ## Rest Endpoints
 
 ### Authorization
@@ -214,6 +229,4 @@ Patch an user
     payload: User to patch
     response: User patched
 
-
-[//]: # (TODO: Do usage part with username and passwords)
 
