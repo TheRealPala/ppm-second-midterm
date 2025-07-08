@@ -69,7 +69,14 @@ The application expose the REST CLIENT in the root of the web server.
 The API Endpoints are available at `/api/`, the documentation is available [here](#Rest-Endpoints) or on [Postman](https://ticket-api.palano.it).  
 The app has been deployed at this url: [https://ppm-second-midterm-production.up.railway.app/](https://ppm-second-midterm-production.up.railway.app/).  
 
-As said before, for a basic usage, the client available [here](https://ppm-second-midterm-production.up.railway.app/) is more than enough.  
+### Basic Client
+For a basic usage, the client available [here](https://ppm-second-midterm-production.up.railway.app/) is more than enough.  
+In order to perfom login, there is a dropdown menu with the available users, and you can select one of them.   
+Each time you select one, the client will execute the login request and will store the tokens in the local storage.  
+The requests are done using Axios, and, thanks to the interceptors, the access token is automatically added to each request.  
+If the token is expired, the client will automatically perform a refresh request to get a new access token and resume the request.
+
+### Postman Collection
 If you want to test each endpoint in a more detailed way, you can use the Postman collection available [here](https://ticket-api.palano.it).  
 If you want to go with the Postman collection, the docs will teach you how to use it, but, as a summary, you have to add in the environment variables the username and the password of the user you want to impersonate, and then you can use the "login_check" endpoint to get the access token and the refresh token.
 The Available Users are:
@@ -78,7 +85,10 @@ The Available Users are:
 (the token is not required, so you have neither to fill the environment nor perform the login_check request)
 - Base User 1 -> username: `user1`, password: `user1`,
 - Base User 2 -> username: `user2`, password: `user2`,
-- Staff User -> username: `staff`, password: `staff`.
+- Staff User -> username: `staff`, password: `staff`,  
+**If you do not change the username and password values, you will use the defaults: the Staff User.**
+
+
 ## Rest Endpoints
 
 ### Authorization
