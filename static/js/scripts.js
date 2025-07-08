@@ -1,7 +1,7 @@
 const users = {
-    user1: { username: 'ale', password: 'pala' },
-    user2: { username: 'user2', password: 'password2' },
-    staff: { username: 'root', password: 'root' }
+    user1: { username: 'user1', password: 'user1' },
+    user2: { username: 'user2', password: 'user2' },
+    staff: { username: 'staff', password: 'staff' }
 };
 
 const api = axios.create({
