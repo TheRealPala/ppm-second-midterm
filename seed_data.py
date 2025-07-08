@@ -1,13 +1,17 @@
+import os
 from datetime import timedelta
 
+import django
 from django.contrib.auth import get_user_model
-from django.template.defaulttags import now
+from django.utils.timezone import now
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ticketing_system.settings")
+django.setup()
 
 from events.models import Event
 from reservations.models import Reservation
 
 User = get_user_model()
-
 
 def run():
     try:
@@ -49,3 +53,7 @@ def run():
 
     except Exception as e:
         print(f"An error occurred while seeding data: {e}")
+
+
+if __name__ == '__main__':
+    run()
