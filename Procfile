@@ -1,1 +1,1 @@
-web: gunicorn ticketing_system.wsgi
+web: gunicorn ticketing_system.wsgi --bind 0.0.0.0:$PORT
