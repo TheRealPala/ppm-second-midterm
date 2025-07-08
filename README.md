@@ -74,7 +74,7 @@ For a basic usage, the client available [here](https://ppm-second-midterm-produc
 In order to perform login, there is a dropdown menu with the available users, and you can select one of them.   
 Each time you select one, the client will execute the login request and will store the tokens in the local storage.  
 The requests are done using Axios, and, thanks to the interceptors, the access token is automatically added to each request.  
-If the token is expired, the client will automatically perform a refresh request to get a new access token and resume the request.
+If the token is expired, the client will automatically perform a refresh request to get a new access token and resume the request.  
 The current user is displayed in the top right corner of the page.
 
 ### Postman Collection
