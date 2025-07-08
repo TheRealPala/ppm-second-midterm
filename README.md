@@ -71,10 +71,11 @@ The app has been deployed at this url: [https://ppm-second-midterm-production.up
 
 ### Basic Client
 For a basic usage, the client available [here](https://ppm-second-midterm-production.up.railway.app/) is more than enough.  
-In order to perfom login, there is a dropdown menu with the available users, and you can select one of them.   
+In order to perform login, there is a dropdown menu with the available users, and you can select one of them.   
 Each time you select one, the client will execute the login request and will store the tokens in the local storage.  
 The requests are done using Axios, and, thanks to the interceptors, the access token is automatically added to each request.  
 If the token is expired, the client will automatically perform a refresh request to get a new access token and resume the request.
+The current user is displayed in the top right corner of the page.
 
 ### Postman Collection
 If you want to test each endpoint in a more detailed way, you can use the Postman collection available [here](https://ticket-api.palano.it).  
